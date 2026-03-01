@@ -562,7 +562,7 @@ function App() {
                 <h4>{section.title}</h4>
                 <ul>
                   {section.links.map((link, j) => (
-                    <li key={j}><a href="#">{link}</a></li>
+                    <li key={j}><a href="/">{link}</a></li>
                   ))}
                 </ul>
               </div>
@@ -573,9 +573,9 @@ function App() {
           <div className="footer-bottom">
             <p>© {new Date().getFullYear()} TechNova. All rights reserved.</p>
             <div className="footer-social">
-              <a href="#">Twitter</a>
-              <a href="#">LinkedIn</a>
-              <a href="#">GitHub</a>
+             <a href="https://twitter.com">Twitter</a>
+             <a href="https://linkedin.com">LinkedIn</a>
+             <a href="https://github.com">GitHub</a>
             </div>
           </div>
 
