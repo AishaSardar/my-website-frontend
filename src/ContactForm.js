@@ -8,6 +8,8 @@ function ContactForm() {
   });
 
   const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -18,23 +20,32 @@ function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
 
-    const response = await fetch("my-website-backend-production-9786.up.railway.app", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    });
+    try {
+      const response = await fetch("https://my-website-backend-production-9786.up.railway.app/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
 
-    const data = await response.json();
-    setSuccess(data.message);
+      const data = await response.json();
+      setSuccess(data.message);
 
-    setFormData({
-      name: "",
-      email: "",
-      message: ""
-    });
+      setFormData({
+        name: "",
+        email: "",
+        message: ""
+      });
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -42,6 +53,7 @@ function ContactForm() {
       <h2>Contact Us</h2>
 
       {success && <p className="success-msg">{success}</p>}
+      {error && <p className="error-msg">{error}</p>}
 
       <form onSubmit={handleSubmit} className="contact-form">
         <input
@@ -70,8 +82,8 @@ function ContactForm() {
           required
         />
 
-        <button type="submit" className="btn btn-primary">
-          Send Message
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? "Sending..." : "Send Message"}
         </button>
       </form>
     </div>
