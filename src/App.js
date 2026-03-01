@@ -267,7 +267,7 @@ function App() {
                 <h4>{section.title}</h4>
                 <ul>
                   {section.links.map((link, j) => (
-                    <li key={j}><a href="/">{link}</a></li>
+                    <li key={j}><a href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}>{link}</a></li>
                   ))}
                 </ul>
               </div>
